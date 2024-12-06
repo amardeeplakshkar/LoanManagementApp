@@ -8,6 +8,8 @@ import { EditLoanForm } from './components/EditLoanForm';
 import { EditPaymentForm } from './components/EditPaymentForm';
 import { OverallPaymentsChart } from './components/OverallPaymentsChart';
 import { Accordion } from './components/Accordion';
+import { AuthProvider } from './contexts/AuthContext';
+import { AuthenticatedRoute } from './components/auth/AuthenticatedRoute';
 
 function App() {
   const [loans, setLoans] = useState<Loan[]>([]);
@@ -77,7 +79,7 @@ function App() {
     }
   };
 
-  return (
+  const MainContent = () => (
     <div className="min-h-screen bg-gray-100">
       <div className="max-w-4xl mx-auto py-8 px-4">
         <div className="flex justify-between items-center mb-8">
@@ -151,6 +153,14 @@ function App() {
         )}
       </div>
     </div>
+  );
+
+  return (
+    <AuthProvider>
+      <AuthenticatedRoute>
+        <MainContent />
+      </AuthenticatedRoute>
+    </AuthProvider>
   );
 }
 
